@@ -6,7 +6,6 @@
 <br>
 Nerf This! is an early-development third-person combat game that combines real-time action with deckbuilding strategy in a roguelike dungeon format.<br>
 Each run drops you into a shifting dungeon filled with hostile encounters, random rewards, and meaningful choices. Cards define your abilities, modify your attacks, and unlock powerful synergies, letting your playstyle evolve with every decision.
-
 The design challenge is making real-time combat and turn-adjacent card logic feel like a single unified system rather than two separate games bolted together.
 <br clear="left"/>
 <p align="center">
@@ -267,9 +266,7 @@ Enemies use Unreal's Behavior Tree system extended with custom `UBTTask` and `UB
 ---
 
 ## Developer
-
 **Kubrik** , Developer & 3D Artist  
-
 [Steam](https://store.steampowered.com/search/?developer=Kubrik) · [ArtStation](https://www.artstation.com/kubrik)
 
 ---
