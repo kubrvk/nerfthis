@@ -1,7 +1,17 @@
 # NERF THIS!
+<img align="left" width="50%"   src="https://img.itch.zone/aW1nLzI2OTk2ODcwLnBuZw==/315x250%23c/FyBPmz.png"/>
+<h3><a href="https://kubrik.itch.io/nerfthis"> <img src="https://img.shields.io/badge/itch.io: https://kubrik.itch.io/nerfthis-000000?style=flat-square&logo=itch.io&logoColor=white&labelColor=000000" height="25"/> </a></h3>
 
-> **Roguelike Deckbuilder · Third-Person Action** — Unreal Engine 5 · C++ · Solo Development  
-> [ArtStation](https://www.artstation.com/kubrik)
+![](https://img.shields.io/badge/Rogue--like-a00d7c?style=) ![](https://img.shields.io/badge/Deck--Builder-0da083?style=) ![](https://img.shields.io/badge/Crafting-849d64?style=) ![C++](https://img.shields.io/badge/C++-00599C?style=logo=c%2B%2B&logoColor=white)  ![C++](https://img.shields.io/badge/Unreal_Engine_5.7-0E1128?style=for-the-badges&logo=unrealengine&logoColor=white)  ![Status](https://img.shields.io/badge/Status-Early_Development-851d10?style=for-the-badges)
+<br>
+Nerf This! is an early-development third-person combat game that combines real-time action with deckbuilding strategy in a roguelike dungeon format.<br>
+Each run drops you into a shifting dungeon filled with hostile encounters, random rewards, and meaningful choices. Cards define your abilities, modify your attacks, and unlock powerful synergies, letting your playstyle evolve with every decision.
+
+The design challenge is making real-time combat and turn-adjacent card logic feel like a single unified system rather than two separate games bolted together.
+<br clear="left"/>
+<p align="center">
+<img src="https://img.itch.zone/aW1hZ2UvNDUyOTY0Mi8yNjk5NzgzOC5wbmc=/original/is5eSH.png" width="25%"/><img src="https://img.itch.zone/aW1hZ2UvNDUyOTY0Mi8yNjk5NzgzNC5wbmc=/original/4Vruk%2B.png" width="25%"/><img src="https://img.itch.zone/aW1hZ2UvNDUyOTY0Mi8yNjk5NzgzNS5wbmc=/original/%2F%2FgIpQ.png" width="25%"/><img src="https://img.itch.zone/aW1hZ2UvNDUyOTY0Mi8yNjk5NzgzNi5wbmc=/original/G25Zqv.png" width="25%"/>
+</p>
 
 > [!WARNING]
 > Nerf This! is currently in early development.
@@ -9,32 +19,21 @@
 
 ---
 
-## Overview
-
-Nerf This! is a third-person action roguelike with a deckbuilding layer built on top of real-time combat. Every run drops the player into a procedurally shifted dungeon — encounters, rewards, and pathing change each time.
-
-Cards are the core mechanic. They define abilities, modify attacks, and create synergies that compound across a run. A build can lean into aggressive combo chains, defensive control setups, or high-risk high-reward configurations — the direction is determined entirely by the cards picked and how they interact.
-
-The design challenge is making real-time combat and turn-adjacent card logic feel like a single unified system rather than two separate games bolted together.
-
----
-
-## Engine & Technical Stack
+## Technical Detail:
 
 | Layer | Technology |
 |---|---|
-| Engine | Unreal Engine 5 |
+| Engine | Unreal Engine 5.7 |
 | Primary Language | C++ (gameplay, AI, systems) |
 | Scripting / Prototyping | Unreal Blueprint (visual scaffolding only) |
 | Rendering | Lumen (GI), Nanite (static meshes), custom post-process materials |
 | Physics | Chaos Physics |
 | Platform | PC (Win64), Steam SDK |
-| 3D Pipeline | ZBrush → Maya → Substance Painter → UE5 |
-| Shader Authoring | UE Material Editor + HLSL custom nodes |
+| 3D Pipeline | Blender , Substance Painter , UE5 |
 
 ---
 
-## Architecture Overview
+## Core Overview:
 
 ```
 NerfThis/
@@ -61,11 +60,11 @@ NerfThis/
 
 ---
 
-## Core Systems: Technical Detail
+## Core Systems: 
 
 ### 1. Card System
-
-Cards are the primary expression of player agency — they modify, extend, and reshape combat behavior at runtime.
+<img src="https://img.itch.zone/aW1hZ2UvNDUyOTY0Mi8yNjk5NzgzOC5wbmc=/original/is5eSH.png" width="100%"/>
+Cards are the primary expression of player agency , they modify, extend, and reshape combat behavior at runtime.
 
 **Card Data Model:**
 
@@ -74,7 +73,7 @@ Each card is defined by a `UCardDataAsset` with a type tag, effect list, cost, r
 | Card Type | Behavior |
 |---|---|
 | **Attack** | Deals damage; may apply status effects or trigger combo conditions |
-| **Skill** | Non-damaging effect — reposition, buff, draw, resource generation |
+| **Skill** | Non-damaging effect , reposition, buff, draw, resource generation |
 | **Power** | Persistent passive; applies an ongoing modifier to combat rules |
 | **Modifier** | Attaches to another card; alters its behavior when played together |
 
@@ -108,7 +107,7 @@ void UCardResolverComponent::PlayCard(UCardDataAsset* Card, AActor* Target)
 
 **Card Upgrades:**
 - Each card has one or more upgrade paths defined in its data asset.
-- Upgrades are applied at rest sites or via specific reward events — `UCardUpgradeComponent` swaps the base asset reference and broadcasts `OnDeckChanged`.
+- Upgrades are applied at rest sites or via specific reward events , `UCardUpgradeComponent` swaps the base asset reference and broadcasts `OnDeckChanged`.
 
 ---
 
@@ -123,7 +122,7 @@ Real-time third-person combat runs in parallel with the card layer. Physical act
 
 **Card-Combat Integration:**
 - Active Power cards can inject additional hit effects, change damage type, add status procs, or alter animation montage selection at combo decision points.
-- Attack cards trigger as discrete ability activations layered on top of the base combo — they do not interrupt the physical chain.
+- Attack cards trigger as discrete ability activations layered on top of the base combo , they do not interrupt the physical chain.
 
 **Stagger System:**
 - `FStaggerState` struct on each actor tracks `CurrentStagger` against `MaxStagger`.
@@ -155,9 +154,9 @@ void UCombatComponent::ApplyStagger(float Amount)
 Each run generates a dungeon layout from a seeded graph system.
 
 - Run initialized with `int32 RunSeed` at `GameMode::BeginPlay`.
-- Room graph generated as a directed acyclic graph — branching paths, merge nodes, and a guaranteed boss terminal.
+- Room graph generated as a directed acyclic graph , branching paths, merge nodes, and a guaranteed boss terminal.
 - Each node is typed (`ECombatRoom`, `EEliteRoom`, `ERestSite`, `EShop`, `ETreasure`, `EBoss`) weighted by depth and prior run history.
-- Room interiors — enemy composition, obstacle layout, reward tier — seeded from `RunSeed + RoomIndex` via `FRandomStream`.
+- Room interiors , enemy composition, obstacle layout, reward tier , seeded from `RunSeed + RoomIndex` via `FRandomStream`.
 - Player sees the graph as a navigable map UI; path choices are locked after the current room is entered.
 
 ```cpp
@@ -190,10 +189,10 @@ Rewards are offered between rooms and after elite/boss encounters.
 
 - **Card Offers**: 3 cards drawn from a weighted pool filtered by current deck tags and run depth. Player picks one; others are discarded.
 - **Relics**: Persistent passive items that modify run-wide rules. Defined as `URelicDataAsset` with trigger hooks into the event bus.
-- **Shop**: Appears at designated map nodes — offers cards, relics, and consumables for gold. Gold drops from elite encounters and treasure rooms.
+- **Shop**: Appears at designated map nodes , offers cards, relics, and consumables for gold. Gold drops from elite encounters and treasure rooms.
 - **Rest Site**: Player chooses between healing HP or upgrading one card in deck.
 
-Offer pools are built from `UDataTable` rows weighted by rarity and filtered via `FGameplayTagQuery` against current deck composition — decks already heavy in a tag see reduced offers of that type to encourage build diversity.
+Offer pools are built from `UDataTable` rows weighted by rarity and filtered via `FGameplayTagQuery` against current deck composition , decks already heavy in a tag see reduced offers of that type to encourage build diversity.
 
 ---
 
@@ -202,7 +201,7 @@ Offer pools are built from `UDataTable` rows weighted by rarity and filtered via
 Enemies use Unreal's Behavior Tree system extended with custom `UBTTask` and `UBTDecorator` nodes in C++.
 
 - Each enemy archetype (`AEnemyCharacter` subclass) has a distinct BT asset defining attack patterns, positioning logic, and retreat thresholds.
-- **Intent System**: enemies telegraph their next action one beat before execution — intent icon displayed above enemy head, giving card-play decisions a reactive dimension.
+- **Intent System**: enemies telegraph their next action one beat before execution , intent icon displayed above enemy head, giving card-play decisions a reactive dimension.
 - Intent is resolved by the BT and broadcast via `OnIntentChanged` delegate consumed by the HUD.
 - Elite enemies have phase transitions: health threshold triggers `OnPhaseChange` delegate, injecting a new BT subtree with an expanded move set.
 
@@ -216,14 +215,14 @@ Enemies use Unreal's Behavior Tree system extended with custom `UBTTask` and `UB
 
 **Meta Progression:**
 - Persistent unlocks (new card pool entries, starting relic options, character variants) stored in `UMetaSaveGame`.
-- Unlocks gated behind run achievements — first clear of depth X, building a specific tag combination, etc.
+- Unlocks gated behind run achievements , first clear of depth X, building a specific tag combination, etc.
 - Meta save is separate from run state; run save is discarded on death (roguelike permadeath enforced at save layer).
 
 ---
 
 ### 7. Save System
 
-- Active run serialized via `USaveGame` subclass on room transition — not mid-room.
+- Active run serialized via `USaveGame` subclass on room transition , not mid-room.
 - Saved data: run seed, room index, player HP/gold, deck state (card list + upgrade flags), active relics, status effects, map graph with traversal state.
 - Async write via `UGameplayStatics::AsyncSaveGameToSlot` to avoid hitch on room load.
 - On game launch, presence of a run save triggers resume prompt; on death the slot is cleared before returning to menu.
@@ -238,7 +237,7 @@ Enemies use Unreal's Behavior Tree system extended with custom `UBTTask` and `UB
 | Room streaming | Rooms loaded async via `TSoftObjectPtr`; previous room unloaded on transition |
 | Tick optimization | Status effect ticks batched on shared timer; idle actors disable tick |
 | AI | BT paused for off-screen enemies; perception system range-gated |
-| Card UI | Hand widget pooled — card actors reused across draw cycles rather than respawned |
+| Card UI | Hand widget pooled , card actors reused across draw cycles rather than respawned |
 
 ---
 
@@ -246,13 +245,12 @@ Enemies use Unreal's Behavior Tree system extended with custom `UBTTask` and `UB
 
 | Category | Detail |
 |---|---|
-| Developer count | 1 (solo) |
-| Status | Early development — systems, visuals, and balance actively changing |
-| Engine | Unreal Engine 5 |
-| Languages | C++, HLSL (custom shader nodes) |
-| 3D Assets | All original — modeled, textured, rigged, animated by developer |
+| Developer count | 1 |
+| Status | Early development , systems, visuals, and balance actively changing |
+| Engine | Unreal Engine 5.7 |
+| Languages | C++, Blueprint|
 | Platforms | PC Windows (Steam) |
-| Development tools | UE5 Editor, ZBrush, Maya, Blender, Substance Painter, Photoshop |
+| Development tools | UE5 Editor, ZBrush, Blender, Substance Painter, Photoshop |
 
 ---
 
@@ -264,13 +262,13 @@ Enemies use Unreal's Behavior Tree system extended with custom `UBTTask` and `UB
 | [Skysmith Dragons](#) | Sandbox survival; dragon taming, airship base building, aerial exploration |
 | [U.N Owen Was Her](https://store.steampowered.com/app/3420540/UN_Owen_Was_Her) | Third-person action shooter; boss AI, bullet-hell patterns |
 | [Olympus of the Heavens](https://store.steampowered.com/app/3358020/Olympus_of_the_Heavens) | Isometric co-op ARPG; procedural gen, Steam networking |
-| [ArtStation Portfolio](https://www.artstation.com/kubrik) | 3D modeling — characters, creatures, props, environments |
+| [ArtStation Portfolio](https://www.artstation.com/kubrik) | 3D modeling , characters, creatures, props, environments |
 
 ---
 
 ## Developer
 
-**Kubrik** — Developer & 3D Artist  
+**Kubrik** , Developer & 3D Artist  
 
 [Steam](https://store.steampowered.com/search/?developer=Kubrik) · [ArtStation](https://www.artstation.com/kubrik)
 
